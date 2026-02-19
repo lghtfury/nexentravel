@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nexen Travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --border: #2a2a2a;
+    --border2: #333;
+    --text: #e8e8e8;
+    --text2: #999;
+    --text3: #555;
+    --silver: #c0c0c0;
+    --silver2: #a0a0a0;
+    --accent: #d4d4d4;
+    --white: #f5f5f5;
+    --green: #3fb950;
+    --tag-bg: #1f1f1f;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f8fa;
+      --bg2: #ffffff;
+      --bg3: #f0f0f0;
+      --border: #d0d7de;
+      --border2: #c0c7ce;
+      --text: #1a1a1a;
+      --text2: #555;
+      --text3: #999;
+      --silver: #444;
+      --silver2: #666;
+      --accent: #222;
+      --white: #111;
+      --tag-bg: #eaeaea;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 60px;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo img {
+    height: 38px;
+    width: auto;
+    display: block;
+    filter: brightness(1);
+  }
+  @media (prefers-color-scheme: light) {
+    .nav-logo img { filter: invert(1) brightness(0.2); }
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 0.25rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.85rem; color: var(--text2);
+    padding: 0.35rem 0.75rem; border-radius: 6px;
+    transition: all 0.15s;
+  }
+  .nav-links a:hover { background: var(--bg3); color: var(--text); }
+  .nav-cta {
+    background: var(--text) !important;
+    color: var(--bg) !important;
+    font-weight: 700 !important; font-size: 0.82rem !important;
+    padding: 0.4rem 1rem !important;
+    border-radius: 6px !important;
+  }
+  .nav-cta:hover { opacity: 0.85 !important; }
+
+  /* HERO */
+  .hero {
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 2rem 3rem;
+    max-width: 1100px; margin: 0 auto;
+    display: flex; gap: 2.5rem; align-items: flex-start;
+  }
+  .hero-avatar {
+    width: 100px; height: 100px; flex-shrink: 0;
+    border-radius: 12px;
+    border: 1px solid var(--border2);
+    background: #0a0a0a;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding: 6px;
+  }
+  .hero-avatar img { width: 100%; height: 100%; object-fit: contain; }
+  @media (prefers-color-scheme: light) {
+    .hero-avatar { background: #111; }
+  }
+  .hero-info h1 {
+    font-size: 1.6rem; font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.2;
+  }
+  .hero-handle {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem; color: var(--text2);
+    margin-top: 0.15rem; margin-bottom: 0.9rem;
+  }
+  .hero-bio {
+    font-size: 0.95rem; color: var(--text2);
+    max-width: 520px; margin-bottom: 1rem;
+  }
+  .hero-stats {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; color: var(--text2);
+  }
+  .hero-stats span strong { color: var(--text); font-weight: 700; }
+  .hero-meta {
+    display: flex; gap: 1.2rem; margin-top: 0.75rem; flex-wrap: wrap;
+    font-size: 0.82rem; color: var(--text2);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1100px; margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .main { grid-template-columns: 1fr; }
+    .hero { flex-direction: column; }
+    nav { padding: 0 1rem; }
+    .nav-links .hide-mobile { display: none; }
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem; margin-bottom: 1.25rem;
+  }
+  .section-header h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .section-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; color: var(--text3); transition: color 0.15s;
+  }
+  .section-link:hover { color: var(--silver); }
+
+  /* REPO CARDS */
+  .repos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+  @media (max-width: 600px) { .repos { grid-template-columns: 1fr; } }
+  .repo-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.25rem; background: var(--bg2);
+    display: flex; flex-direction: column; gap: 0.6rem;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: pointer; position: relative; overflow: hidden;
+  }
+  .repo-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--silver2), transparent);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .repo-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .repo-card:hover::before { opacity: 1; }
+  .repo-card-header { display: flex; align-items: center; justify-content: space-between; }
+  .repo-icon { font-size: 0.9rem; }
+  .repo-badge {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700;
+    padding: 0.15rem 0.5rem; border-radius: 20px; border: 1px solid var(--border2); color: var(--text2);
+  }
+  .repo-badge.live { color: var(--green); border-color: rgba(63,185,80,0.3); background: rgba(63,185,80,0.08); }
+  .repo-badge.soon { color: var(--text3); border-color: var(--border); }
+  .repo-name { font-size: 0.92rem; font-weight: 700; color: var(--silver); letter-spacing: -0.01em; }
+  .repo-desc { font-size: 0.82rem; color: var(--text2); line-height: 1.5; flex: 1; }
+  .repo-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 0.25rem; }
+  .repo-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .tag {
+    font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--silver2);
+    background: var(--tag-bg); border: 1px solid var(--border);
+    padding: 0.1rem 0.5rem; border-radius: 20px;
+  }
+  .repo-arrow { font-size: 0.8rem; color: var(--text3); transition: transform 0.15s, color 0.15s; }
+  .repo-card:hover .repo-arrow { transform: translateX(3px); color: var(--silver); }
+
+  /* GOOGLE FORM EMBED */
+  .form-section { margin-bottom: 2.5rem; }
+  .form-embed-wrap {
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--bg2); overflow: hidden;
+  }
+  .form-embed-header {
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--text2);
+    background: var(--bg3);
+  }
+  .form-embed-header .issue-num { color: var(--text3); }
+  .form-embed-wrap iframe {
+    width: 100%; border: none; display: block;
+    min-height: 900px;
+    background: white;
+  }
+
+  /* CONTRIBUTION GRAPH */
+  .contrib-section { margin-bottom: 2.5rem; }
+  .contrib-graph {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.25rem;
+  }
+  .contrib-months {
+    display: flex; justify-content: space-between;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--text3);
+    margin-bottom: 0.4rem; padding: 0 2px;
+  }
+  .contrib-grid { display: grid; grid-template-columns: repeat(53, 1fr); gap: 2px; }
+  .contrib-cell { aspect-ratio: 1; border-radius: 2px; background: var(--bg3); }
+  .contrib-cell.l1 { background: #1e2a1e; }
+  .contrib-cell.l2 { background: #2d4a2d; }
+  .contrib-cell.l3 { background: #4a7a4a; }
+  .contrib-cell.l4 { background: #6aaa6a; }
+  .contrib-label { font-family:'Space Mono',monospace; font-size:0.7rem; color:var(--text3); margin-top:0.6rem; text-align:right; }
+
+  /* GROUP COMING SOON */
+  .coming-soon-card {
+    border: 1px dashed var(--border2); border-radius: 8px; background: var(--bg2);
+    padding: 1.5rem; text-align: center; position: relative; overflow: hidden;
+  }
+  .coming-soon-card::before {
+    content: 'PRIVATE'; position: absolute; top: 12px; right: -20px;
+    background: var(--bg3); border: 1px solid var(--border2);
+    font-family: 'Space Mono', monospace; font-size: 0.6rem; font-weight: 700;
+    color: var(--text3); padding: 0.2rem 2.5rem; transform: rotate(35deg);
+  }
+  .coming-soon-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--silver); }
+  .coming-soon-desc { font-size: 0.82rem; color: var(--text2); margin-bottom: 1rem; }
+  .waitlist-row { display: flex; gap: 0.5rem; }
+  .waitlist-row input {
+    flex: 1; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.82rem;
+    padding: 0.45rem 0.75rem; outline: none; transition: border-color 0.15s;
+  }
+  .waitlist-row input:focus { border-color: var(--silver2); }
+
+  /* TESTIMONIALS */
+  .sidebar-card { border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); overflow: hidden; }
+  .sidebar-card-header {
+    padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
+    font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--text2);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sidebar-card-body { padding: 1rem; }
+  .testimonial { padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  .testimonial:last-child { border-bottom: none; }
+  .testimonial-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem; }
+  .issue-closed {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    background: rgba(163,113,247,0.12); color: #a371f7;
+    border: 1px solid rgba(163,113,247,0.3); padding: 0.1rem 0.45rem; border-radius: 20px;
+  }
+  .t-name { font-weight: 700; font-size: 0.8rem; }
+  .t-handle { color: var(--text3); font-family: 'Space Mono', monospace; font-size: 0.68rem; }
+  .t-text { color: var(--text2); line-height: 1.45; }
+  .t-meta { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--text3); margin-top: 0.3rem; }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+  .contact-card .sidebar-card-header { background: var(--bg3); }
+  .contact-options { display: flex; flex-direction: column; gap: 0.6rem; }
+  .contact-opt {
+    border: 1px solid var(--border); border-radius: 6px; padding: 0.8rem;
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .contact-opt:hover { border-color: var(--border2); background: var(--bg3); }
+  .contact-opt-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .contact-opt-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.15rem; }
+  .contact-opt-desc { font-size: 0.75rem; color: var(--text2); line-height: 1.4; }
+  .savings-badge {
+    display: inline-block; margin-top: 0.4rem;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    background: rgba(63,185,80,0.12); color: var(--green);
+    border: 1px solid rgba(63,185,80,0.3); padding: 0.1rem 0.4rem; border-radius: 20px;
+  }
+  .activity-item {
+    display: flex; gap: 0.65rem; align-items: flex-start;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.8rem;
+  }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); flex-shrink: 0; margin-top: 5px; }
+  .activity-dot.green { background: var(--green); }
+  .activity-dot.silver { background: var(--silver2); }
+  .activity-text { color: var(--text2); line-height: 1.4; }
+  .activity-text strong { color: var(--text); font-weight: 600; }
+  .activity-time { font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--text3); white-space:nowrap; margin-left:auto; padding-top:3px; }
+
+  /* BUTTONS */
+  .btn {
+    font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 700;
+    padding: 0.5rem 1.1rem; border-radius: 6px; border: 1px solid transparent; cursor: pointer; transition: all 0.15s;
+  }
+  .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-green { background: rgba(63,185,80,0.15); color: var(--green); border-color: rgba(63,185,80,0.4); }
+  .btn-green:hover { background: rgba(63,185,80,0.25); }
+  .btn-secondary { background: transparent; border-color: var(--border2); color: var(--text2); }
+  .btn-secondary:hover { background: var(--bg3); color: var(--text); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 10px;
+    max-width: 420px; width: 90%; padding: 1.75rem;
+    animation: fadeUp 0.2s ease;
+  }
+  .modal h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .modal p { font-size: 0.85rem; color: var(--text2); margin-bottom: 1.25rem; line-height: 1.5; }
+  .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .hero { animation: fadeUp 0.4s ease both; }
+  .repo-card { animation: fadeUp 0.4s ease both; }
+  .repo-card:nth-child(1) { animation-delay: 0.05s; }
+  .repo-card:nth-child(2) { animation-delay: 0.10s; }
+  .repo-card:nth-child(3) { animation-delay: 0.15s; }
+  .repo-card:nth-child(4) { animation-delay: 0.20s; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 1.5rem 2rem; text-align: center;
+    font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text3);
+  }
+  footer a { color: var(--text3); transition: color 0.15s; }
+  footer a:hover { color: var(--silver); }
+  footer .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="Logo_Transparent.png" alt="Nexen Travel"/>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#book" class="hide-mobile">Book</a></li>
+    <li><a href="#itinerary" class="hide-mobile">Itinerary</a></li>
+    <li><a href="#packages" class="hide-mobile">Packages</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-avatar">
+    <img src="Logo_Transparent.png" alt="Nexen Travel Logo"/>
+  </div>
+  <div class="hero-info">
+    <h1>Nexen Travel</h1>
+    <div class="hero-handle">@nexentravel</div>
+    <p class="hero-bio">Your personal travel architect. We build journeys that fit you — not the other way around. Book yourself or let us craft something extraordinary.</p>
+    <div class="hero-stats">
+      <span><strong>500+</strong> trips planned</span>
+      <span><strong>48</strong> countries</span>
+      <span><strong>6</strong> years</span>
+      <span><strong>★ 4.98</strong> avg rating</span>
+    </div>
+    <div class="hero-meta">
+      <span>🌍 Worldwide</span>
+      <span>✈️ All trip types</span>
+      <span>💬 Fast response</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="content">
+
+    <!-- PINNED REPOS -->
+    <div class="section-header">
+      <h2>📌 Pinned</h2>
+    </div>
+    <div class="repos" id="book">
+      <div class="repo-card" onclick="window.open('#','_blank')">
+        <div class="repo-card-header"><span class="repo-icon">📦</span><span class="repo-badge live">● Live</span></div>
+        <div class="repo-name">book-yourself</div>
+        <div class="repo-desc">Browse and book trips directly on our self-service platform. Flights, hotels, packages — everything in one place.</div>
+        <div class="repo-footer">
+          <div class="repo-tags"><span class="tag">#flights</span><span class="tag">#hotels</span><span class="tag">#packages</span></div>
+          <span class="repo-arrow">→</span>
+        </div>
+      </div>
+      <div class="repo-card" onclick="document.getElementById('itinerary').scrollIntoView({behavior:'smooth'})">
+        <div class="repo-card-header"><span class="repo-icon">🗺️</span><span class="repo-badge live">● Live</span></div>
+        <div class="repo-name">itinerary-builder</div>
+        <div class="repo-desc">Tell us your dream trip. We'll design a custom itinerary around your dates, budget, and interests.</div>
+        <div class="repo-footer">
+          <div class="repo-tags"><span class="tag">#custom</span><span class="tag">#planning</span></div>
+          <span class="repo-arrow">→</span>
+        </div>
+      </div>
+      <div class="repo-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+        <div class="repo-card-header"><span class="repo-icon">🔒</span><span class="repo-badge soon">Coming Soon</span></div>
+        <div class="repo-name">group-packages</div>
+        <div class="repo-desc">Curated group travel experiences. Corporate retreats, destination weddings, friend group getaways. Join the waitlist.</div>
+        <div class="repo-footer">
+          <div class="repo-tags"><span class="tag">#groups</span><span class="tag">#events</span></div>
+          <span class="repo-arrow">→</span>
+        </div>
+      </div>
+      <div class="repo-card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        <div class="repo-card-header"><span class="repo-icon">💬</span><span class="repo-badge live">● Live</span></div>
+        <div class="repo-name">direct-booking</div>
+        <div class="repo-desc">Skip the middleman. Contact me directly for exclusive deals, price-matching, and personalized service that saves you money.</div>
+        <div class="repo-footer">
+          <div class="repo-tags"><span class="tag">#savings</span><span class="tag">#vip</span></div>
+          <span class="repo-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITINERARY FORM (Google Form Embed) -->
+    <div class="form-section" id="itinerary">
+      <div class="section-header">
+        <h2>🗺️ Open New Issue — Itinerary Request</h2>
+        <span class="section-link">#itinerary-builder</span>
+      </div>
+      <div class="form-embed-wrap">
+        <div class="form-embed-header">
+          <span>📝</span>
+          <span>Itinerary Request Form <span class="issue-num">— fill out below and we'll be in touch within 24hrs</span></span>
+        </div>
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLScnsCR7HTY3F1NV4mE7/viewform?embedded=true"
+          width="100%"
+          height="900"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="Nexen Travel Itinerary Request">
+          Loading form…
+        </iframe>
+      </div>
+    </div>
+
+    <!-- CONTRIBUTION GRAPH -->
+    <div class="contrib-section">
+      <div class="section-header">
+        <h2>📊 Trips Planned — Last 12 Months</h2>
+        <span class="section-link">567 trips total</span>
+      </div>
+      <div class="contrib-graph">
+        <div class="contrib-months">
+          <span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+          <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
+          <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span>
+        </div>
+        <div class="contrib-grid" id="contribGrid"></div>
+        <div class="contrib-label">Less ▪▪▪▪▪ More</div>
+      </div>
+    </div>
+
+    <!-- GROUP PACKAGES -->
+    <div id="packages" style="margin-bottom:2.5rem;">
+      <div class="section-header">
+        <h2>🔒 Group Packages — Coming Soon</h2>
+      </div>
+      <div class="coming-soon-card">
+        <div class="coming-soon-title">Group Travel Experiences</div>
+        <div class="coming-soon-desc">Curated packages for groups of all sizes — corporate retreats, destination bachelorette weekends, friend group adventures, and more. Currently in development. Be first to know when packages drop.</div>
+        <div class="waitlist-row">
+          <input type="email" placeholder="your@email.com — join the waitlist"/>
+          <button class="btn btn-green">Notify Me</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div style="margin-bottom:2.5rem;">
+      <div class="section-header">
+        <h2>✅ Closed Issues — Client Reviews</h2>
+      </div>
+      <div class="sidebar-card">
+        <div style="padding: 0.5rem 1rem;">
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <span class="issue-closed">✓ closed</span>
+              <span class="t-name">Sarah & Mike</span>
+              <span class="t-handle">@sarahandmike</span>
+            </div>
+            <div class="t-text">Nexen planned our entire honeymoon in Italy — every detail was perfect. The private villa they booked wasn't even on any platform, saved us a fortune going directly through them.</div>
+            <div class="t-meta">Honeymoon · Italy · 14 days · closed 3 days ago</div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <span class="issue-closed">✓ closed</span>
+              <span class="t-name">James T.</span>
+              <span class="t-handle">@jamestravels</span>
+            </div>
+            <div class="t-text">Booked a solo backpacking trip through Southeast Asia. They handled every connection, every hostel, gave me a day-by-day breakdown. Could not have done it without this team.</div>
+            <div class="t-meta">Solo · SE Asia · 21 days · closed 1 week ago</div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-header">
+              <span class="issue-closed">✓ closed</span>
+              <span class="t-name">The Rodriguez Family</span>
+              <span class="t-handle">@rodriguez_fam</span>
+            </div>
+            <div class="t-text">Family of 5 to Cancun — they found us an all-inclusive that fit everyone's needs, negotiated extras, and the kids had the time of their lives. Already planning our next trip.</div>
+            <div class="t-meta">Family · Cancun · 7 days · closed 2 weeks ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- CONTACT -->
+    <div class="sidebar-card contact-card" id="contact">
+      <div class="sidebar-card-header">
+        <span>💬 Contact / Book Direct</span>
+        <span style="font-size:0.65rem;color:var(--green);font-family:'Space Mono',monospace;">● online</span>
+      </div>
+      <div class="sidebar-card-body">
+        <div class="contact-options">
+          <div class="contact-opt" onclick="document.getElementById('directModal').classList.add('active')">
+            <span class="contact-opt-icon">⚡</span>
+            <div>
+              <div class="contact-opt-title">Quick Direct Booking</div>
+              <div class="contact-opt-desc">Have a specific trip in mind? Message me directly and I'll get back to you within the hour.</div>
+            </div>
+          </div>
+          <div class="contact-opt" onclick="document.getElementById('savingsModal').classList.add('active')">
+            <span class="contact-opt-icon">💰</span>
+            <div>
+              <div class="contact-opt-title">Save More, Book Direct</div>
+              <div class="contact-opt-desc">Skip the booking fees. Access exclusive rates and perks not available online.</div>
+              <span class="savings-badge">💚 avg. 15–30% savings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY FEED -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Recent Activity</div>
+      <div class="sidebar-card-body" style="padding: 0.5rem 1rem;">
+        <div class="activity-item">
+          <span class="activity-dot green"></span>
+          <span class="activity-text"><strong>Maria</strong> booked Bali, 10 days</span>
+          <span class="activity-time">2h ago</span>
+        </div>
+        <div class="activity-item">
+          <span class="activity-dot silver"></span>
+          <span class="activity-text"><strong>Dev</strong> opened itinerary — Japan</span>
+          <span class="activity-time">5h ago</span>
+        </div>
+        <div class="activity-item">
+          <span class="activity-dot green"></span>
+          <span class="activity-text"><strong>The Kellys</strong> Iceland trip confirmed</span>
+          <span class="activity-time">1d ago</span>
+        </div>
+        <div class="activity-item">
+          <span class="activity-dot silver"></span>
+          <span class="activity-text"><strong>5 people</strong> joined group waitlist</span>
+          <span class="activity-time">2d ago</span>
+        </div>
+        <div class="activity-item">
+          <span class="activity-dot green"></span>
+          <span class="activity-text"><strong>Priya & Arjun</strong> Maldives honeymoon ✈️</span>
+          <span class="activity-time">3d ago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- POPULAR DESTINATIONS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Popular Destinations</div>
+      <div class="sidebar-card-body">
+        <div style="display:flex;flex-direction:column;gap:0.4rem;">
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem;"><span>🇯🇵 Japan</span><span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);">43 trips</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem;"><span>🇮🇩 Bali</span><span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);">67 trips</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem;"><span>🇮🇹 Italy</span><span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);">51 trips</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem;"><span>🇲🇻 Maldives</span><span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);">29 trips</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem;"><span>🇲🇽 Mexico</span><span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);">88 trips</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem;"><span>🇹🇭 Thailand</span><span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);">74 trips</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOK YOURSELF -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">🔗 Self-Service Booking</div>
+      <div class="sidebar-card-body">
+        <p style="font-size:0.82rem;color:var(--text2);margin-bottom:0.85rem;line-height:1.5;">Prefer to browse and book on your own? Our full booking platform is one click away.</p>
+        <button class="btn btn-primary" style="width:100%;text-align:center;" onclick="window.open('#','_blank')">Open Booking Site →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+  </div>
+  <div>© 2025 Nexen Travel · Built for wanderers</div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="directModal" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal">
+    <h3>⚡ Quick Direct Booking</h3>
+    <p>Ready to book? Reach out directly and I'll handle everything for you — fast, personal, and stress-free.</p>
+    <p style="margin-top:0.5rem;">📧 <strong>hello@nexentravel.com</strong><br/>📱 <strong>+1 (555) 000-0000</strong></p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="document.getElementById('directModal').classList.remove('active')">Close</button>
+      <button class="btn btn-primary" onclick="document.getElementById('directModal').classList.remove('active');document.getElementById('itinerary').scrollIntoView({behavior:'smooth'})">Open Form →</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="savingsModal" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal">
+    <h3>💰 Save More by Booking Direct</h3>
+    <p>When you contact me directly instead of booking through a third-party site, you skip platform fees and get access to exclusive rates I've negotiated with hotels, airlines, and tour operators.</p>
+    <p style="margin-top:0.75rem;font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--green);">✓ No booking fees<br/>✓ Exclusive partner rates<br/>✓ Room upgrades & extras<br/>✓ 24/7 personal support</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="document.getElementById('savingsModal').classList.remove('active')">Close</button>
+      <button class="btn btn-green" onclick="document.getElementById('savingsModal').classList.remove('active');document.getElementById('itinerary').scrollIntoView({behavior:'smooth'})">Let's Talk →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const grid = document.getElementById('contribGrid');
+for (let i = 0; i < 53 * 7; i++) {
+  const cell = document.createElement('div');
+  cell.className = 'contrib-cell';
+  const r = Math.random();
+  if (r > 0.55) {
+    const lvls = [0,0,1,1,2,2,3,4];
+    const lvl = lvls[Math.floor(Math.random()*lvls.length)];
+    if (lvl > 0) cell.classList.add('l'+lvl);
+  }
+  grid.appendChild(cell);
+}
+</script>
+</body>
+</html>
